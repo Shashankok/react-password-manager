@@ -1,0 +1,91 @@
+* {
+  box-sizing: border-box;
+}
+
+body{
+  background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+}
+
+img{
+  cursor: pointer;
+}
+.container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.heading-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+
+.app-heading{
+  color: #5E5DF0;
+  text-align: center;
+}
+
+.input-container{
+  display: flex;
+  width: 50%;
+  flex-wrap: wrap;
+  column-gap: 30px;
+  row-gap: 30px;
+  justify-content: center;
+}
+
+.input-fields{
+  border-radius: 50px;
+  padding: 10px;
+  width: 300px;
+  outline: 1px solid #5E5DF0;
+  border: 1px;
+}
+
+.password-input-container{
+  position: relative;
+}
+
+.show-password{
+  position: absolute;
+  right: 5px;
+  top: 8px;
+}
+.eye{
+  width: 18px;
+}
+
+.save-btn{
+  padding: 10px 50px;
+  border-radius: 50px;
+  margin-top: 20px;
+}
+
+.save-btn {
+  background: #5E5DF0;
+  padding: 10px 50px;
+  border-radius: 100px;
+  margin-top: 20px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  opacity: 1;
+  outline: 0 solid transparent;
+  border: 0;
+}
+.save-btn:hover{
+  background: #4444ff;
+  box-shadow: #5E5DF0 0 10px 20px -10px;
+
+}
+
+hr{
+  border-top: 1px solid rgb(139, 139, 139);
+  width: 70%;
+}
