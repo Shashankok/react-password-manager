@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react'
 import './PasswordsCard.css'
 import { ToastContainer, toast } from 'react-toastify'
-
 import 'react-toastify/dist/ReactToastify.css'
 
-const PasswordsCard = ({ item, arrayLength }) => {
+const PasswordsCard = ({ item, passwordsArray, deletePassword }) => {
   // const [cardClass, setCardClass] = useState('card')
-  // // console.log('item is ' + item)
+  // console.log('item id ' + item.id)
   // console.log('username is ' + item.userName)
   // const cardBG = () => {
   //   const colors = ['#92fc88', '#ffb663', '#a763ff']
@@ -30,7 +29,6 @@ const PasswordsCard = ({ item, arrayLength }) => {
     })
     navigator.clipboard.writeText(copiedItem)
   }
-
   return (
     <>
       <ToastContainer
@@ -45,10 +43,15 @@ const PasswordsCard = ({ item, arrayLength }) => {
         pauseOnHover
         theme='dark'
       />
-      {/* // <div className={setClassName} style={{ backgroundColor: cardBG() }}> */}
       <div className='card'>
         <div className='card-top'>
-          <img src='/src/assets/delete.png' alt='' />
+          <img
+            onClick={() => {
+              deletePassword(item.id)
+            }}
+            src='/src/assets/delete.png'
+            alt=''
+          />
           <h2 className='card-heading'>{item.siteName}</h2>
           <img src='/src/assets/edit.png' alt='' />
         </div>

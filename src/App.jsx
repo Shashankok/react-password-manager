@@ -5,23 +5,11 @@ import PasswordsCard from './components/PasswordsCard'
 import React, { useState } from 'react'
 
 function App () {
-  const [form, setform] = useState({
-    siteName: '',
-    url: '',
-    userName: '',
-    password: ''
-  })
-
-  const handleChange = e => {
-    setform({ ...form, [e.target.name]: e.target.value })
-  }
-
   return (
     <>
       <div className='container'>
         <HeadingComp />
-        <InputComp form={form} handleChange={handleChange} />
-        <hr />
+        <InputComp />
       </div>
     </>
   )
