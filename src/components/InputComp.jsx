@@ -1,11 +1,15 @@
 import { useEffect, useRef, useState } from 'react'
 import PasswordsCard from './PasswordsCard'
 import { v4 as uuidv4 } from 'uuid'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const InputComp = () => {
   const ref = useRef()
   const [passwordVisible, setPasswordVisible] = useState(false)
+  const [isEditing, setIsEditing] = useState(false)
   const [passwordsArray, setPasswordsArray] = useState([])
+  const [currentId, setCurrentId] = useState()
 
   useEffect(() => {
     let passwords = localStorage.getItem('passwords')
@@ -29,6 +33,7 @@ const InputComp = () => {
     setPasswordVisible(!passwordVisible)
   }
   const deletePassword = id => {
+    console.log('delete clicked')
     setPasswordsArray(passwordsArray.filter(item => item.id !== id))
     localStorage.setItem(
       'passwords',
@@ -36,12 +41,58 @@ const InputComp = () => {
     )
   }
 
+  const editPassword = id => {
+    console.log('edit clicked')
+    setform(passwordsArray.filter(item => item.id === id)[0])
+    setIsEditing(true)
+    setCurrentId(id)
+  }
+
   const savePassword = () => {
-    setPasswordsArray([...passwordsArray, { ...form, id: uuidv4() }])
-    localStorage.setItem(
-      'passwords',
-      JSON.stringify([...passwordsArray, { ...form, id: uuidv4() }])
-    )
+    if (!form.siteName || !form.userName || !form.password) {
+      toast.error('Please fill all the fields', {
+        position: 'top-right',
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        theme: 'dark'
+      })
+      return
+    }
+
+    if (isEditing) {
+      setPasswordsArray(prevPasswordsArray => {
+        const updatedPasswordsArray = prevPasswordsArray.map(item => {
+          if (item.id === currentId) {
+            return { ...form, id: currentId }
+          }
+          return item
+        })
+        localStorage.setItem('passwords', JSON.stringify(updatedPasswordsArray))
+        return updatedPasswordsArray
+      })
+      setIsEditing(false)
+      setCurrentId(null)
+    } else {
+      setPasswordsArray(prevPasswordsArray => {
+        const updatedPasswordsArray = [
+          ...prevPasswordsArray,
+          { ...form, id: uuidv4() }
+        ]
+        localStorage.setItem('passwords', JSON.stringify(updatedPasswordsArray))
+        return updatedPasswordsArray
+      })
+    }
+
+    // Clear the form after saving
+    setform({
+      siteName: '',
+      url: '',
+      userName: '',
+      password: ''
+    })
   }
 
   const handleChange = e => {
@@ -50,6 +101,18 @@ const InputComp = () => {
 
   return (
     <>
+      <ToastContainer
+        position='top-right'
+        autoClose={1000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable={false}
+        pauseOnHover={false}
+        theme='dark'
+      />
       <div className='input-container'>
         <input
           name='siteName'
@@ -99,6 +162,8 @@ const InputComp = () => {
             item={item}
             deletePassword={deletePassword}
             passwordsArray={passwordsArray}
+            showPassword={showPassword}
+            editPassword={editPassword}
           />
         ))}
       </div>

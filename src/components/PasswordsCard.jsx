@@ -1,21 +1,26 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import './PasswordsCard.css'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
-const PasswordsCard = ({ item, passwordsArray, deletePassword }) => {
-  // const [cardClass, setCardClass] = useState('card')
-  // console.log('item id ' + item.id)
-  // console.log('username is ' + item.userName)
-  // const cardBG = () => {
-  //   const colors = ['#92fc88', '#ffb663', '#a763ff']
-  //   return colors[arrayLength % colors.length]
-  // }
+const PasswordsCard = ({
+  item,
+  passwordsArray,
+  deletePassword,
+  editPassword
+}) => {
+  const ref = useRef()
+  const [passwordText, setPasswordText] = useState('******')
 
-  // const setClassName = () => {
-  //   let rem = colors[arrayLength % colors.length]
-  //   setCardClass(cardClass + ' card' + rem)
-  // }
+  function hidePassword () {
+    if (ref.current.src.includes('/src/assets/eye-hidden.png')) {
+      ref.current.src = '/src/assets/eye.png'
+      setPasswordText(item.password)
+    } else if (ref.current.src.includes('/src/assets/eye.png')) {
+      ref.current.src = '/src/assets/eye-hidden.png'
+      setPasswordText('******')
+    }
+  }
   const copyText = copiedItem => {
     toast.success(copiedItem + ' Copied to clipboard', {
       position: 'top-right',
@@ -32,15 +37,15 @@ const PasswordsCard = ({ item, passwordsArray, deletePassword }) => {
   return (
     <>
       <ToastContainer
-        position='top-center'
-        autoClose={5000}
+        position='top-right'
+        autoClose={2000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
         rtl={false}
         pauseOnFocusLoss
         draggable
-        pauseOnHover
+        pauseOnHover={false}
         theme='dark'
       />
       <div className='card'>
@@ -53,7 +58,11 @@ const PasswordsCard = ({ item, passwordsArray, deletePassword }) => {
             alt=''
           />
           <h2 className='card-heading'>{item.siteName}</h2>
-          <img src='/src/assets/edit.png' alt='' />
+          <img
+            onClick={() => editPassword(item.id)}
+            src='/src/assets/edit.png'
+            alt=''
+          />
         </div>
         <div className='username-container'>
           <p className='username-key'>Username:</p>
@@ -69,7 +78,7 @@ const PasswordsCard = ({ item, passwordsArray, deletePassword }) => {
         </div>
         <div className='password-container'>
           <p className='password-key'>Password:</p>
-          <p className='password-value'>{item.password}</p>
+          <p className='password-value'>{passwordText}</p>
           <img
             onClick={() => {
               copyText(item.password)
@@ -78,6 +87,14 @@ const PasswordsCard = ({ item, passwordsArray, deletePassword }) => {
             alt=''
             className='copy-icon'
           />
+          <span onClick={() => hidePassword()}>
+            <img
+              ref={ref}
+              src='/src/assets/eye-hidden.png'
+              alt=''
+              className='eye'
+            />
+          </span>
         </div>
         <div className='url-container'>
           <p className='url-key'>URL:</p>
