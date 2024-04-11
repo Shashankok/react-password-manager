@@ -26,9 +26,9 @@ const InputComp = () => {
   })
 
   const showPassword = () => {
-    ref.current.src = ref.current.src.includes('/src/assets/eye.png')
-      ? '/src/assets/eye-hidden.png'
-      : '/src/assets/eye.png'
+    ref.current.src = ref.current.src.includes('eye.png')
+      ? 'eye-hidden.png'
+      : 'eye.png'
 
     setPasswordVisible(!passwordVisible)
   }
@@ -148,7 +148,7 @@ const InputComp = () => {
             onChange={handleChange}
           />
           <span className='show-password' onClick={showPassword}>
-            <img ref={ref} src='/src/assets/eye.png' alt='' className='eye' />
+            <img ref={ref} src='eye.png' alt='' className='eye' />
           </span>
         </div>
       </div>

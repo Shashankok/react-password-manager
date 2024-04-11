@@ -13,16 +13,16 @@ const PasswordsCard = ({
   const [passwordText, setPasswordText] = useState('******')
 
   function hidePassword () {
-    if (ref.current.src.includes('/src/assets/eye-hidden.png')) {
-      ref.current.src = '/src/assets/eye.png'
+    if (ref.current.src.includes('eye-hidden.png')) {
+      ref.current.src = 'eye.png'
       setPasswordText(item.password)
-    } else if (ref.current.src.includes('/src/assets/eye.png')) {
-      ref.current.src = '/src/assets/eye-hidden.png'
+    } else if (ref.current.src.includes('eye.png')) {
+      ref.current.src = 'eye-hidden.png'
       setPasswordText('******')
     }
   }
   const copyText = copiedItem => {
-    toast.success(copiedItem + ' Copied to clipboard', {
+    toast.success('Copied to clipboard', {
       position: 'top-right',
       autoClose: 2000,
       hideProgressBar: false,
@@ -54,15 +54,11 @@ const PasswordsCard = ({
             onClick={() => {
               deletePassword(item.id)
             }}
-            src='/src/assets/delete.png'
+            src='delete.png'
             alt=''
           />
           <h2 className='card-heading'>{item.siteName}</h2>
-          <img
-            onClick={() => editPassword(item.id)}
-            src='/src/assets/edit.png'
-            alt=''
-          />
+          <img onClick={() => editPassword(item.id)} src='edit.png' alt='' />
         </div>
         <div className='username-container'>
           <p className='username-key'>Username:</p>
@@ -71,7 +67,7 @@ const PasswordsCard = ({
             onClick={() => {
               copyText(item.userName)
             }}
-            src='/src/assets/copy.png'
+            src='copy.png'
             alt=''
             className='copy-icon'
           />
@@ -83,17 +79,12 @@ const PasswordsCard = ({
             onClick={() => {
               copyText(item.password)
             }}
-            src='/src/assets/copy.png'
+            src='copy.png'
             alt=''
             className='copy-icon'
           />
           <span onClick={() => hidePassword()}>
-            <img
-              ref={ref}
-              src='/src/assets/eye-hidden.png'
-              alt=''
-              className='eye'
-            />
+            <img ref={ref} src='eye-hidden.png' alt='' className='eye' />
           </span>
         </div>
         <div className='url-container'>
@@ -105,7 +96,7 @@ const PasswordsCard = ({
             onClick={() => {
               copyText(item.url)
             }}
-            src='/src/assets/copy.png'
+            src='copy.png'
             alt=''
             className='copy-icon'
           />
