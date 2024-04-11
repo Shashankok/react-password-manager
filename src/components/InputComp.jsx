@@ -144,7 +144,7 @@ const InputComp = () => {
             value={form.password}
             type={passwordVisible ? 'text' : 'password'}
             placeholder='Password'
-            className='input-fields'
+            className='input-fields password-input'
             onChange={handleChange}
           />
           <span className='show-password' onClick={showPassword}>
